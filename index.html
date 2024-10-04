@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Clicker Save Editor</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        textarea { width: 100%; height: 200px; }
-        button { margin-top: 10px; }
-    </style>
+    <title>Cookie Clicker Save File Creator</title>
 </head>
 <body>
-    <h1>Cookie Clicker Save Editor</h1>
-    <textarea id="saveData" placeholder="Paste your save data here..."></textarea>
-    <br>
-    <button id="loadSave">Load Save</button>
-    <button id="saveEdit">Save Edit</button>
+    <h1>Cookie Clicker Save File Creator</h1>
+    <button id="generateSave">Generate Save File</button>
+    <a id="downloadLink" style="display:none">Download Save File</a>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('generateSave').addEventListener('click', () => {
+            const saveData = {
+                cookies: 1000000,
+                cookiesEarned: 1000000,
+                // Add more properties as needed
+            };
+            const jsonString = JSON.stringify(saveData);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.getElementById('downloadLink');
+
+            link.href = url;
+            link.download = 'cookie_clicker_save.json';
+            link.style.display = 'block';
+            link.innerText = 'Download Your Save File';
+        });
+    </script>
 </body>
 </html>
